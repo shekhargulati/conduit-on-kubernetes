@@ -1,5 +1,7 @@
 package io.spring.api.security;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.h2.console.enabled:false}")
     private boolean h2ConsoleEnabled;
+    @Value("${rest.api.base.path}")
+    private String restApiBasePath;
 
     @Bean
     public JwtTokenFilter jwtTokenFilter() {
@@ -46,9 +50,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests()
             .antMatchers(HttpMethod.OPTIONS).permitAll()
-            .antMatchers(HttpMethod.GET, "/articles/feed").authenticated()
-            .antMatchers(HttpMethod.POST, "/users", "/users/login").permitAll()
-            .antMatchers(HttpMethod.GET, "/articles/**", "/profiles/**", "/tags").permitAll()
+            .antMatchers(HttpMethod.GET, restApiBasePath + "/articles/feed").authenticated()
+            .antMatchers(HttpMethod.POST, restApiBasePath + "/users", restApiBasePath + "/users/login").permitAll()
+            .antMatchers(HttpMethod.GET, restApiBasePath + "/articles/**", restApiBasePath + "/profiles/**", restApiBasePath + "/tags").permitAll()
             .anyRequest().authenticated();
 
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -57,9 +61,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(asList("*"));
+        configuration.setAllowedOrigins(Collections.singletonList("*"));
         configuration.setAllowedMethods(asList("HEAD",
-            "GET", "POST", "PUT", "DELETE", "PATCH"));
+                                               "GET", "POST", "PUT", "DELETE", "PATCH"));
         // setAllowCredentials(true) is important, otherwise:
         // The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.
         configuration.setAllowCredentials(true);

@@ -1,13 +1,13 @@
 package io.spring.core.article;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -42,7 +42,7 @@ public class Article {
         this.updatedAt = createdAt;
     }
 
-    public void update(String title, String description, String body) {
+    public void update(String title, String description, String body, String[] tagList) {
         if (!"".equals(title)) {
             this.title = title;
             this.slug = toSlug(title);
@@ -52,6 +52,9 @@ public class Article {
         }
         if (!"".equals(body)) {
             this.body = body;
+        }
+        if (tags != null) {
+            this.tags = Arrays.stream(tagList).collect(toSet()).stream().map(Tag::new).collect(toList());
         }
         this.updatedAt = new DateTime();
     }

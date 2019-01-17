@@ -56,7 +56,8 @@ public class ArticleApi {
             article.update(
                 updateArticleParam.getTitle(),
                 updateArticleParam.getDescription(),
-                updateArticleParam.getBody());
+                updateArticleParam.getBody(),
+                updateArticleParam.getTagList());
             articleRepository.save(article);
             return ResponseEntity.ok(articleResponse(articleQueryService.findBySlug(slug, user).get()));
         }).orElseThrow(ResourceNotFoundException::new);
@@ -88,4 +89,5 @@ class UpdateArticleParam {
     private String title = "";
     private String body = "";
     private String description = "";
+    private String[] tagList;
 }
