@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conduit-api
+spec:
+  replicas: 2
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: conduit-api
+    spec:
+      containers:
+        - image: com.conduitapp/api
+          imagePullPolicy: Never
+          name: conduit-api
+          ports:
+            - containerPort: 8080

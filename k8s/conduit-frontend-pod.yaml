@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: conduit-frontend
+  labels:
+    app: frontend
+spec:
+  containers:
+    - image: com.conduitapp/frontend
+      imagePullPolicy: Never
+      name: conduit-frontend
+      ports:
+        - containerPort: 80
