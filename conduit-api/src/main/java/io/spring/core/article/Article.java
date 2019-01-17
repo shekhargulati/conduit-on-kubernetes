@@ -53,7 +53,7 @@ public class Article {
         if (!"".equals(body)) {
             this.body = body;
         }
-        if (tags != null) {
+        if (tagList != null) {
             this.tags = Arrays.stream(tagList).collect(toSet()).stream().map(Tag::new).collect(toList());
         }
         this.updatedAt = new DateTime();

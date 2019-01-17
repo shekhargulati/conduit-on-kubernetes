@@ -44,6 +44,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve --mode dev",
     "test:unit": "vue-cli-service test:unit"
   },
   "version": "0.1.0"

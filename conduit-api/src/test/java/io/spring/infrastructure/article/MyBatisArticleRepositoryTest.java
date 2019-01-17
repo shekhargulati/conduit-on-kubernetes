@@ -1,5 +1,7 @@
 package io.spring.infrastructure.article;
 
+import java.util.Optional;
+
 import io.spring.core.article.Article;
 import io.spring.core.article.ArticleRepository;
 import io.spring.core.article.Tag;
@@ -11,15 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Optional;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 @MybatisTest
 @RunWith(SpringRunner.class)
@@ -56,7 +57,7 @@ public class MyBatisArticleRepositoryTest {
         articleRepository.save(article);
 
         String newTitle = "new test 2";
-        article.update(newTitle, "", "");
+        article.update(newTitle, "", "", new String[]{});
         articleRepository.save(article);
         System.out.println(article.getSlug());
         Optional<Article> optional = articleRepository.findBySlug(article.getSlug());
