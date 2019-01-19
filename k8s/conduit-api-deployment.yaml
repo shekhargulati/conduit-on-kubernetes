@@ -22,5 +22,12 @@ spec:
         - image: localhost:5000/com.conduitapp/api
           imagePullPolicy: Always
           name: conduit-api
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/conduit
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: password
           ports:
             - containerPort: 8080
