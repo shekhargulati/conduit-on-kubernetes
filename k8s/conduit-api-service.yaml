@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: conduit-frontend-lb
+  name: conduit-api-lb
 spec:
   type: LoadBalancer
   ports:
@@ -9,4 +9,4 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: conduit-frontend
+    app: conduit-api

@@ -5,6 +5,9 @@ metadata:
 spec:
   replicas: 2
   minReadySeconds: 15
+  selector:
+    matchLabels:
+      app: conduit-frontend
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,8 +19,8 @@ spec:
         app: conduit-frontend
     spec:
       containers:
-        - image: com.conduitapp/frontend
-          imagePullPolicy: Never
+        - image: localhost:5000/com.conduitapp/frontend
+          imagePullPolicy: Always
           name: conduit-frontend
           ports:
             - containerPort: 80
