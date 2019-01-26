@@ -3,11 +3,11 @@ kind: Pod
 metadata:
   name: conduit-frontend
   labels:
-    app: frontend
+    app: conduit-frontend
 spec:
   containers:
     - image: localhost:5000/com.conduitapp/frontend
-      imagePullPolicy: Never
+      imagePullPolicy: Always
       name: conduit-frontend
       ports:
         - containerPort: 80

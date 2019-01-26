@@ -1,18 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: conduit-frontend
+  name: conduit-fe-deployment
 spec:
-  replicas: 2
-  minReadySeconds: 15
+  replicas: 3
   selector:
     matchLabels:
       app: conduit-frontend
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
   template:
     metadata:
       labels:
