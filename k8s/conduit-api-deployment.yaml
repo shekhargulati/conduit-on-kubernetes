@@ -8,11 +8,6 @@ spec:
   selector:
     matchLabels:
       app: conduit-api
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
   template:
     metadata:
       labels:
@@ -24,9 +19,9 @@ spec:
           name: conduit-api
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://mysql:3306/conduit
+              value: jdbc:mysql://mysql-service:3306/conduit
             - name: SPRING_DATASOURCE_USERNAME
-              value: root
+              value: conduit
             - name: SPRING_DATASOURCE_PASSWORD
               value: password
           ports:
